@@ -1,35 +1,40 @@
+import axios from "axios";
+import {useEffect, useState } from "react";
+
+const Form = ({setInfo,info}) => {
+  const [city, SetCity] = useState("");
+
+  const handleChange = (e) => {
+    SetCity(e.target.value);
+  };
+
+   useEffect(()=>{console.log(info)},[info])
+  const handleClick = async () => {
+      const api = "4aa318d6b7732a6f7fdc2a006196389e";
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}&units=metric&lang=tr`;
+      await axios(url).then(async data => {
+        await setInfo(data.data)
+    }).catch(err => console.log("Hatanız : ", err));
+  }
 
 
-import axios from 'axios'
-import React, { useState } from 'react'
 
-const Form = () => {
-    const [change,setChange]= useState();
-    const [data, setData]= useState()
-
-    const handleClick= (e) =>{
-      e.preventDefault()
-      const api= "4aa318d6b7732a6f7fdc2a006196389e";
-      const url= `https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon=${change}&appid=${api}`;
-      axios(url).then(res =>{console.log(res.data)
-      })
-    }
-    console.log(data);
-   
-  return (
-    <>
-    <form>
+    return (
+      <>
         <div className="form">
-            <input onChange={(e)=>{setChange(e.target.value)}} value={change} type="text" className="inputText" placeholder='Şehir ara..' />
+          <input
+            type="text"
+            onChange={handleChange}
+            className="inputText"
+            placeholder="Şehir ara.."
+          />
         </div>
         <div className="btn">
-            <button type='submit' className="submitBtn" onClick={handleClick}>Verileri Getir</button>
+          <button className="submitBtn" onClick={handleClick}>Verileri Getir</button>
         </div>
-    </form>
-  
-    
-    </>
-  )
-}
+      </>
+    );
+  };
 
-export default Form
+
+export default Form;

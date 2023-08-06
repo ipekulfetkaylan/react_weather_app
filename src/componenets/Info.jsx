@@ -1,21 +1,28 @@
-import {WiSunset} from "react-icons/wi";
+import React from 'react';
+import { RiCelsiusFill } from "react-icons/ri";
 
-import React from 'react'
-
-const Info = () => {
+const Info = ({ info }) => {
   return (
     <div className='info'>
-      <p className="city">Şehir, Ülke</p>
-      <div className="w-value">
-        <p className="temperature">40</p><WiSunset className="icon"/>
-      </div>
-      <p className="weather">Hava Durumu</p>
-      <div className="feels-temp">
-        <p className="feel"> Hissedilen: </p><WiSunset className="icon"/>
-      </div>
-     
+      {info ? (
+        <>
+          <p className='city'>{info.name}, {info.sys.country}</p>
+          <div className='w-value'>
+            <p className='temperature'>{info.main.temp}</p>
+            <RiCelsiusFill className='icon' />
+          </div>
+          <p className='weather'>{info.weather[0].description}</p>
+          <div className='feels-temp'>
+            <p className='feel'>Hissedilen: {info.main.feels_like} </p>
+            <RiCelsiusFill className='icon' />
+          </div>
+        </>
+      ) : (
+        null
+      )}
     </div>
-  )
-}
+  );
+};
 
 export default Info;
+
